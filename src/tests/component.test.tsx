@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, test, expect } from "vitest";
 
-import { Component } from "../components/component";
+import { Component } from "../components/button";
 
 const text = "lorem ipsum";
 
