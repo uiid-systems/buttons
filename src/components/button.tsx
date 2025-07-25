@@ -1,6 +1,8 @@
 import { Spinner } from "../icons/spinner";
 import type { ButtonProps } from "../types";
 
+const LoadingIcon = () => <Spinner size={14} strokeWidth={2} />;
+
 export const Button = ({
   variant,
   size = "md",
@@ -13,13 +15,23 @@ export const Button = ({
   onClick,
   onKeyDown,
   children,
-  "aria-label": ariaLabel,
   ...props
 }: ButtonProps) => {
+  const ariaLabel = props["aria-label"];
+
   if (icon && !iconPosition && !ariaLabel) {
     throw new Error(
       "Please provide an aria-label for an icon button with no iconPosition."
     );
+  }
+
+  let iconSlot;
+  if (icon && iconPosition === "before") {
+    iconSlot = "before";
+  } else if (icon && iconPosition === "after") {
+    iconSlot = "after";
+  } else if (icon && !iconPosition) {
+    iconSlot = "standalone";
   }
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,13 +49,14 @@ export const Button = ({
   return (
     <button
       data-uiid="button"
-      /** variants */
+      /** properties */
       data-variant={variant}
       data-size={size}
       data-fill={fill}
       data-loading={loading ? "true" : undefined}
+      data-icon={iconSlot}
       /** accessibility */
-      aria-label={loading ? loadingText ?? "Loading..." : ariaLabel}
+      aria-label={loading ? loadingText ?? "Loading" : ariaLabel}
       aria-disabled={disabled || loading ? "true" : undefined}
       /** events */
       onClick={handleClick}
@@ -52,7 +65,7 @@ export const Button = ({
     >
       {loading !== undefined && (
         <span data-uiid="button-loading" aria-hidden={!loading}>
-          {loadingText ?? <Spinner size={14} strokeWidth={2} />}
+          {loadingText ?? <LoadingIcon />}
         </span>
       )}
       <span data-uiid="button-content" aria-hidden={loading}>

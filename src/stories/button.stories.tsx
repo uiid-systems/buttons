@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Home, CircleArrowRight, Copy, Send, Bell } from "lucide-react";
 import { fn } from "storybook/test";
 
 import { Button } from "../components/button";
-import { Spinner } from "../icons/spinner";
 
 const meta = {
   title: "Components/Button",
@@ -13,6 +13,7 @@ const meta = {
   argTypes: {
     loading: { control: "boolean" },
     disabled: { control: "boolean" },
+    size: { control: "select", options: ["sm", "md", "lg"] },
     loadingText: { control: "text" },
   },
 } satisfies Meta<typeof Button>;
@@ -40,31 +41,44 @@ export const Variants: Story = {
     return (
       <div style={{ display: "flex", gap: "1rem", flexDirection: "column" }}>
         {variants.map((variant) => (
-          <Grid key={variant.variant}>
-            <span
+          <Grid key={variant.label}>
+            {/* <span
               style={{
                 minWidth: "6em",
                 fontSize: "0.875rem",
                 fontWeight: "700",
                 textAlign: "right",
                 marginRight: "0.5rem",
-                color: "var(--shade_halftone)",
+                color: "var(--shade_accent)",
               }}
             >
               {variant.label}
-            </span>
+            </span> */}
             <Button {...args} variant={variant.variant}>
               default
             </Button>
             <Button {...args} variant={variant.variant} disabled>
               disabled
             </Button>
-            <Button {...args} variant={variant.variant} loading>
-              loading
+            <Button loading {...args} variant={variant.variant}>
+              lorem
             </Button>
             <Button {...args} variant={variant.variant} fill="ghost">
               ghost
             </Button>
+            <Button
+              {...args}
+              icon={<Send size={18} />}
+              aria-label="Send email"
+              variant={variant.variant}
+            />
+            <Button
+              {...args}
+              icon={<Bell size={18} />}
+              aria-label="Set alarm"
+              variant={variant.variant}
+              fill="ghost"
+            />
           </Grid>
         ))}
       </div>
@@ -90,25 +104,17 @@ export const Sizes: Story = {
 export const Icons: Story = {
   render: (args) => (
     <Grid>
-      <Button
-        {...args}
-        icon={<Spinner size={14} strokeWidth={2} />}
-        iconPosition="before"
-      >
-        with icon before
+      <Button {...args} icon={<Home size={18} />} iconPosition="before">
+        Go home
       </Button>
       <Button
         {...args}
-        icon={<Spinner size={14} strokeWidth={2} />}
+        icon={<CircleArrowRight size={18} />}
         iconPosition="after"
       >
-        with icon after
+        Go to next step
       </Button>
-      <Button
-        {...args}
-        icon={<Spinner size={14} strokeWidth={2} />}
-        aria-label="foo"
-      />
+      <Button {...args} icon={<Copy size={18} />} aria-label="Copy" />
     </Grid>
   ),
 };
