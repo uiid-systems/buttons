@@ -1,12 +1,12 @@
-@import "./tokens.css" layer(toretto.tokens.button);
+@import "./tokens.css" layer(uiid.tokens.button);
 
-@layer toretto.buttons {
-  [data-toretto="button"] {
+@layer uiid.buttons {
+  [data-uiid="button"] {
     all: unset;
-    cursor: pointer;
-    display: inline-grid;
     border-radius: var(--button-border-radius);
-    transition: all 50ms ease-in-out;
+    cursor: pointer;
+    display: grid;
+    transition: all var(--button-transition) ease-in-out;
 
     & > * {
       grid-area: 1 / 1;
@@ -14,116 +14,119 @@
       text-align: center;
     }
 
-    &:not([aria-disabled="true"]):hover {
-      scale: var(--button-scale-hover);
-    }
-
-    &:not([aria-disabled="true"]):active {
-      scale: var(--button-scale-active);
-    }
-
     &:focus {
       outline-style: solid;
       outline-width: 2px;
       outline-offset: 2px;
+      outline-color: var(--button-color-outline, var(--button-bg));
     }
 
-    &:not([data-variant]) {
-      background-color: var(--button-color-background);
-      color: var(--button-color-foreground);
-      &:focus {
-        outline-color: var(--button-color-background);
-      }
-      &:not([aria-disabled="true"]):hover,
-      &:not([aria-disabled="true"]):focus {
-        background-color: var(--button-color-background-hover);
-      }
-      &:not([aria-disabled="true"]):active {
-        background-color: var(--button-color-background-active);
-      }
+    &:not([aria-disabled="true"]):hover,
+    &:not([aria-disabled="true"]):focus {
+      scale: var(--button-scale-hover);
     }
 
-    &:where([data-variant="primary"]) {
-      background-color: var(--button-color-background-primary);
-      color: var(--button-color-foreground-primary);
-      &:focus {
-        outline-color: var(--button-color-background-primary);
-      }
-      &:not([aria-disabled="true"]):hover,
-      &:not([aria-disabled="true"]):focus {
-        background-color: var(--button-color-background-primary-hover);
-      }
-      &:not([aria-disabled="true"]):active {
-        background-color: var(--button-color-background-primary-active);
-      }
+    &:not([aria-disabled="true"]):hover {
+      background-color: color-mix(
+        in srgb,
+        var(--button-bg) var(--button-hover-mix),
+        var(--button-mix-color)
+      );
     }
 
-    &:where([data-variant="secondary"]) {
-      background-color: var(--button-color-background-secondary);
-      color: var(--button-color-foreground-secondary);
-      &:focus {
-        outline-color: var(--button-color-background-secondary);
-      }
-      &:not([aria-disabled="true"]):hover,
-      &:not([aria-disabled="true"]):focus {
-        background-color: var(--button-color-background-secondary-hover);
-      }
-      &:not([aria-disabled="true"]):active {
-        background-color: var(--button-color-background-secondary-active);
-      }
+    &:not([aria-disabled="true"]):active {
+      scale: var(--button-scale-active);
+      background-color: color-mix(
+        in srgb,
+        var(--button-bg) var(--button-active-mix),
+        var(--button-mix-color)
+      );
     }
 
-    &:where([data-variant="tertiary"]) {
-      background-color: var(--button-color-background-tertiary);
-      color: var(--button-color-foreground-tertiary);
-      &:focus {
-        outline-color: var(--button-color-background-tertiary);
-      }
-      &:not([aria-disabled="true"]) {
-        &:hover,
-        &:focus {
-          background-color: var(--button-color-background-tertiary-hover);
-        }
-        &:active {
-          background-color: var(--button-color-background-tertiary-active);
-        }
-      }
-    }
-
+    /** disabled */
     &:where([aria-disabled="true"]) {
       opacity: var(--button-disabled-opacity);
       cursor: not-allowed;
     }
 
+    /** sizes */
+    font-size: var(--button-font-size);
+    height: var(--button-height);
+    padding-inline: var(--button-padding-x);
+
     &:where([data-size="sm"]) {
-      height: var(--button-size-sm-height);
-      padding-inline: var(--button-size-sm-padding-x);
-      font-size: var(--button-size-sm-font-size);
+      --button-font-size: var(--button-size-sm-font-size);
+      --button-height: var(--button-size-sm-height);
+      --button-padding-x: var(--button-size-sm-padding-x);
     }
 
     &:where([data-size="md"]) {
-      height: var(--button-size-md-height);
-      padding-inline: var(--button-size-md-padding-x);
-      font-size: var(--button-size-md-font-size);
+      --button-font-size: var(--button-size-md-font-size);
+      --button-height: var(--button-size-md-height);
+      --button-padding-x: var(--button-size-md-padding-x);
     }
 
     &:where([data-size="lg"]) {
-      height: var(--button-size-lg-height);
-      padding-inline: var(--button-size-lg-padding-x);
-      font-size: var(--button-size-lg-font-size);
+      --button-font-size: var(--button-size-lg-font-size);
+      --button-height: var(--button-size-lg-height);
+      --button-padding-x: var(--button-size-lg-padding-x);
+    }
+
+    /** variants */
+    background-color: var(--button-bg);
+    border-color: var(--button-color-border, var(--button-bg));
+    color: var(--button-fg);
+
+    &:where([data-variant="primary"]) {
+      --button-bg: var(--button-primary-bg);
+      --button-fg: var(--button-primary-fg);
+    }
+
+    &:where([data-variant="secondary"]) {
+      --button-bg: var(--button-secondary-bg);
+      --button-fg: var(--button-secondary-fg);
+    }
+
+    &:where([data-variant="tertiary"]) {
+      --button-bg: var(--button-tertiary-bg);
+      --button-fg: var(--button-tertiary-fg);
+    }
+
+    &:where([data-variant="inverted"]) {
+      --button-bg: var(--button-inverted-bg);
+      --button-fg: var(--button-inverted-fg);
+      --button-mix-color: var(--shade_foreground);
+      color: var(--button-inverted-fg) !important;
+
+      [data-uiid="spinner-foreground"] {
+        stroke: var(--button-fg) !important;
+      }
+    }
+
+    /** fills */
+
+    &:where([data-fill="ghost"]) {
+      --button-mix-color: var(--shade_foreground);
+      color: var(--shade_background);
+    }
+
+    &:where([data-fill="ghost"]:not(:hover)) {
+      background: transparent;
+      color: var(--button-bg);
     }
   }
 
-  [data-toretto="button-loading"] {
+  [data-uiid="button-loading"] {
     visibility: visible;
     &[aria-hidden="true"] {
       visibility: hidden;
     }
   }
 
-  [data-toretto="button-content"] {
-    display: flex;
+  [data-uiid="button-content"] {
     align-items: center;
+    display: flex;
+    font-weight: 500;
     gap: 1rem;
     visibility: visible;
     &[aria-hidden="true"] {

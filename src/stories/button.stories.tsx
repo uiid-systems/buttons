@@ -20,38 +20,56 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const States: Story = {
-  render: (args) => (
-    <Grid>
-      <Button {...args}>default</Button>
-      <Button {...args} disabled>
-        disabled
-      </Button>
-      <Button loading {...args} loadingText={undefined}>
-        without loading text
-      </Button>
-      <Button loading loadingText="loading..." {...args}>
-        with loading text
-      </Button>
-    </Grid>
-  ),
-};
-
 export const Variants: Story = {
-  render: (args) => (
-    <Grid>
-      <Button {...args}>default</Button>
-      <Button {...args} variant="primary">
-        primary
-      </Button>
-      <Button {...args} variant="secondary">
-        secondary
-      </Button>
-      <Button {...args} variant="tertiary">
-        tertiary
-      </Button>
-    </Grid>
-  ),
+  parameters: {
+    // pseudo: {
+    //   hover: ["#hover"],
+    //   focus: ["#focus"],
+    //   active: "#active",
+    // },
+  },
+  render: (args) => {
+    const variants = [
+      { variant: undefined, label: "default" },
+      { variant: "inverted" as const, label: "inverted" },
+      { variant: "primary" as const, label: "primary" },
+      { variant: "secondary" as const, label: "secondary" },
+      { variant: "tertiary" as const, label: "tertiary" },
+    ];
+
+    return (
+      <div style={{ display: "flex", gap: "1rem", flexDirection: "column" }}>
+        {variants.map((variant) => (
+          <Grid key={variant.variant}>
+            <span
+              style={{
+                minWidth: "6em",
+                fontSize: "0.875rem",
+                fontWeight: "700",
+                textAlign: "right",
+                marginRight: "0.5rem",
+                color: "var(--shade_halftone)",
+              }}
+            >
+              {variant.label}
+            </span>
+            <Button {...args} variant={variant.variant}>
+              default
+            </Button>
+            <Button {...args} variant={variant.variant} disabled>
+              disabled
+            </Button>
+            <Button {...args} variant={variant.variant} loading>
+              loading
+            </Button>
+            <Button {...args} variant={variant.variant} fill="ghost">
+              ghost
+            </Button>
+          </Grid>
+        ))}
+      </div>
+    );
+  },
 };
 export const Sizes: Story = {
   render: (args) => (
@@ -100,7 +118,7 @@ const Grid = ({ children }: { children: React.ReactNode }) => {
     <div
       style={{
         display: "inline-flex",
-
+        alignItems: "center",
         gap: "0.5rem",
       }}
     >

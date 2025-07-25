@@ -1,61 +1,17 @@
 :root {
-  --button-disabled-opacity: 0.5;
   --button-border-radius: 0.5rem;
-  --button-scale-hover: 1.02;
+  --button-border-width: 2px;
+  --button-disabled-opacity: 0.5;
   --button-scale-active: 0.98;
+  --button-scale-hover: 1.02;
+  --button-transition: 50ms;
 
-  --button-color-background: var(--shade_foreground);
-  --button-color-foreground: var(--shade_background);
-  --button-color-background-hover: color-mix(
-    in srgb,
-    var(--button-color-background) 85%,
-    var(--shade_background)
-  );
-  --button-color-background-active: color-mix(
-    in srgb,
-    var(--button-color-background) 80%,
-    var(--shade_background)
-  );
+  /** color mixing tokens */
+  --button-hover-mix: 85%;
+  --button-active-mix: 80%;
+  --button-mix-color: var(--shade_background);
 
-  --button-color-background-primary: gold;
-  --button-color-foreground-primary: tomato;
-  --button-color-background-primary-hover: color-mix(
-    in srgb,
-    var(--button-color-background-primary) 95%,
-    var(--shade_background)
-  );
-  --button-color-background-primary-active: color-mix(
-    in srgb,
-    var(--button-color-background-primary) 90%,
-    var(--shade_background)
-  );
-
-  --button-color-foreground-secondary: dodgerblue;
-  --button-color-background-secondary: mediumseagreen;
-  --button-color-background-secondary-hover: color-mix(
-    in srgb,
-    var(--button-color-background-secondary) 95%,
-    var(--shade_background)
-  );
-  --button-color-background-secondary-active: color-mix(
-    in srgb,
-    var(--button-color-background-secondary) 90%,
-    var(--shade_background)
-  );
-
-  --button-color-foreground-tertiary: beige;
-  --button-color-background-tertiary: rebeccapurple;
-  --button-color-background-tertiary-hover: color-mix(
-    in srgb,
-    var(--button-color-background-tertiary) 90%,
-    var(--shade_background)
-  );
-  --button-color-background-tertiary-active: color-mix(
-    in srgb,
-    var(--button-color-background-tertiary) 80%,
-    var(--shade_background)
-  );
-
+  /** sizes */
   --button-size-sm-height: 2rem;
   --button-size-sm-padding-x: 1rem;
   --button-size-sm-font-size: 0.875rem;
@@ -67,4 +23,20 @@
   --button-size-lg-height: 4rem;
   --button-size-lg-padding-x: 2rem;
   --button-size-lg-font-size: 1.125rem;
+
+  /** variants */
+  --button-bg: var(--shade_foreground);
+  --button-fg: var(--shade_background);
+
+  --button-primary-bg: var(--shade_positive);
+  --button-primary-fg: var(--black);
+
+  --button-secondary-bg: var(--shade_negative);
+  --button-secondary-fg: var(--black);
+
+  --button-tertiary-bg: var(--shade_cautious);
+  --button-tertiary-fg: var(--black);
+
+  --button-inverted-bg: var(--shade_background);
+  --button-inverted-fg: var(--shade_foreground);
 }

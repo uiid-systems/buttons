@@ -21,7 +21,7 @@ export const Spinner = ({
 
   return (
     <svg
-      data-toretto="spinner"
+      data-uiid="spinner"
       className={`animate-spin ${className}`}
       width={size}
       height={size}
@@ -32,6 +32,7 @@ export const Spinner = ({
     >
       {/* Background circle */}
       <circle
+        data-uiid="spinner-background"
         cx={size / 2}
         cy={size / 2}
         r={radius}
@@ -43,6 +44,7 @@ export const Spinner = ({
 
       {/* Foreground arc */}
       <circle
+        data-uiid="spinner-foreground"
         cx={size / 2}
         cy={size / 2}
         r={radius}

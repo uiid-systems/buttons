@@ -11,7 +11,7 @@
   animation: spin 1s linear infinite;
 }
 
-[data-toretto="spinner"] {
+[data-uiid="spinner"] {
   shape-rendering: geometricPrecision;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: -moz-crisp-edges;

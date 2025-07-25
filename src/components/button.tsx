@@ -1,41 +1,11 @@
 import { Spinner } from "../icons/spinner";
-
-import "../styles/button.css";
-
-type BaseButtonProps = Omit<React.ComponentProps<"button">, "aria-label"> & {
-  variant?: "primary" | "secondary" | "tertiary";
-  size?: "sm" | "md" | "lg";
-  loading?: boolean;
-  loadingText?: string;
-};
-
-type ButtonWithIconOnly = BaseButtonProps & {
-  icon: React.ReactNode;
-  iconPosition?: undefined;
-  "aria-label": string;
-};
-
-type ButtonWithPositionedIcon = BaseButtonProps & {
-  icon?: React.ReactNode;
-  iconPosition: "before" | "after";
-  "aria-label"?: string;
-};
-
-type ButtonWithoutIcon = BaseButtonProps & {
-  icon?: undefined;
-  iconPosition?: undefined;
-  "aria-label"?: string;
-};
-
-type ButtonProps =
-  | ButtonWithIconOnly
-  | ButtonWithPositionedIcon
-  | ButtonWithoutIcon;
+import type { ButtonProps } from "../types";
 
 export const Button = ({
   variant,
   size = "md",
-  loading = false,
+  fill = "solid",
+  loading,
   loadingText,
   icon,
   iconPosition,
@@ -66,20 +36,26 @@ export const Button = ({
 
   return (
     <button
-      data-loading={loading}
-      aria-label={loading ? loadingText ?? "Loading..." : ariaLabel}
-      data-toretto="button"
+      data-uiid="button"
+      /** variants */
       data-variant={variant}
       data-size={size}
-      aria-disabled={disabled || loading}
+      data-fill={fill}
+      data-loading={loading ? "true" : undefined}
+      /** accessibility */
+      aria-label={loading ? loadingText ?? "Loading..." : ariaLabel}
+      aria-disabled={disabled || loading ? "true" : undefined}
+      /** events */
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       {...props}
     >
-      <span data-toretto="button-loading" aria-hidden={!loading}>
-        {loadingText ?? <Spinner size={14} strokeWidth={2} />}
-      </span>
-      <span data-toretto="button-content" aria-hidden={loading}>
+      {loading !== undefined && (
+        <span data-uiid="button-loading" aria-hidden={!loading}>
+          {loadingText ?? <Spinner size={14} strokeWidth={2} />}
+        </span>
+      )}
+      <span data-uiid="button-content" aria-hidden={loading}>
         {icon && iconPosition === "before" && icon}
         {icon && iconPosition !== "before" && iconPosition !== "after"
           ? icon
