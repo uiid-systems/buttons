@@ -74,6 +74,7 @@
 
     &:where([data-variant="inverted"]) {
       --button-bg: var(--button-inverted-bg);
+      --button-color-outline: var(--button-inverted-fg);
       --button-fg: var(--button-inverted-fg);
       --button-mix-color: var(--shade_foreground);
       color: var(--button-inverted-fg) !important;
@@ -107,6 +108,10 @@
     &:where([data-fill="ghost"]:hover) {
       --button-mix-color: var(--shade_foreground);
       color: var(--shade_background);
+      text-decoration: none;
+    }
+    &:where([data-fill="ghost"]:hover),
+    &:where([data-fill="ghost"]:focus) {
       text-decoration: none;
     }
 
