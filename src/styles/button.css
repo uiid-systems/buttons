@@ -142,6 +142,7 @@
   }
 
   [data-uiid="button-loading"] {
+    margin-inline: auto;
     visibility: visible;
     &[aria-hidden="true"] {
       visibility: hidden;
