@@ -7,6 +7,7 @@ export const Button = ({
   variant,
   size = "md",
   fill = "solid",
+  shape = "rounded",
   loading,
   loadingText,
   icon,
@@ -53,6 +54,7 @@ export const Button = ({
       data-variant={variant}
       data-size={size}
       data-fill={fill}
+      data-shape={shape}
       data-loading={loading ? "true" : undefined}
       data-icon={iconSlot}
       /** accessibility */

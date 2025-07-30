@@ -1,5 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Home, CircleArrowRight, Copy, Send, Bell } from "lucide-react";
+import {
+  Home,
+  CircleArrowRight,
+  Copy,
+  Send,
+  Bell,
+  MessageCircleMore,
+} from "lucide-react";
 import { fn } from "storybook/test";
 
 import { Button } from "../components/button";
@@ -14,6 +21,8 @@ const meta = {
     loading: { control: "boolean" },
     disabled: { control: "boolean" },
     size: { control: "select", options: ["sm", "md", "lg"] },
+    fill: { control: "select", options: ["solid", "outline", "ghost"] },
+    shape: { control: "select", options: ["rounded", "pill"] },
     loadingText: { control: "text" },
   },
 } satisfies Meta<typeof Button>;
@@ -63,14 +72,27 @@ export const Variants: Story = {
             <Button loading {...args} variant={variant.variant}>
               lorem
             </Button>
+            <Button {...args} variant={variant.variant} fill="outline">
+              outline
+            </Button>
             <Button {...args} variant={variant.variant} fill="ghost">
               ghost
+            </Button>
+            <Button {...args} variant={variant.variant} shape="pill">
+              pill
             </Button>
             <Button
               {...args}
               icon={<Send size={18} />}
               aria-label="Send email"
               variant={variant.variant}
+            />
+            <Button
+              {...args}
+              icon={<MessageCircleMore size={18} />}
+              aria-label="View more messages"
+              variant={variant.variant}
+              fill="outline"
             />
             <Button
               {...args}
