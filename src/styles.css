@@ -1,4 +1,4 @@
-@import "@uiid/core/styles.css" layer(uiid.core);
+@import "@uiid/core/styles" layer(uiid.core);
 
 @import url("./styles/tokens.css") layer(uiid.buttons);
 @import url("./styles/button.css") layer(uiid.buttons);
